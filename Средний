@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мини-калькулятор и карточка студента</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .block {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 7px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .student-card {
+            background-color: #e8f4ff;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 5px solid #007bff;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- КАЛЬКУЛЯТОР -->
+    <div class="block">
+        <h2>Мини-калькулятор</h2>
+
+        <input type="number" id="number1" placeholder="Введите первое число">
+        <input type="number" id="number2" placeholder="Введите второе число">
+
+        <button onclick="addNumbers()">Сложить</button>
+        <button onclick="subtractNumbers()">Вычесть</button>
+
+        <div id="result">Результат: </div>
+    </div>
+
+
+    <!-- КАРТОЧКА СТУДЕНТА -->
+    <div class="block">
+        <h2>Генератор карточки студента</h2>
+
+        <input type="text" id="studentName" placeholder="Имя студента">
+        <input type="text" id="studentGroup" placeholder="Группа">
+
+        <select id="studentCourse">
+            <option value="">Выберите курс</option>
+            <option value="1">1 курс</option>
+            <option value="2">2 курс</option>
+            <option value="3">3 курс</option>
+            <option value="4">4 курс</option>
+        </select>
+
+        <button onclick="createStudentCard()">
+            Сформировать карточку
+        </button>
+
+        <!-- Здесь карточка появится в DOM -->
+        <div id="studentCards"></div>
+    </div>
+
+</div>
+
+
+<script>
+    // Сложение двух чисел
+    function addNumbers() {
+        const number1 = Number(document.getElementById("number1").value);
+        const number2 = Number(document.getElementById("number2").value);
+
+        const result = number1 + number2;
+
+        document.getElementById("result").textContent =
+            "Результат: " + result;
+    }
+
+
+    // Вычитание двух чисел
+    function subtractNumbers() {
+        const number1 = Number(document.getElementById("number1").value);
+        const number2 = Number(document.getElementById("number2").value);
+
+        const result = number1 - number2;
+
+        document.getElementById("result").textContent =
+            "Результат: " + result;
+    }
+
+
+    // Создание карточки студента в DOM
+    function createStudentCard() {
+
+        const name = document.getElementById("studentName").value;
+        const group = document.getElementById("studentGroup").value;
+        const course = document.getElementById("studentCourse").value;
+
+        if (name === "" || group === "" || course === "") {
+            alert("Пожалуйста, заполните все поля!");
+            return;
+        }
+
+        // Создаем новый элемент div
+        const card = document.createElement("div");
+
+        // Добавляем ему CSS-класс
+        card.className = "student-card";
+
+        // Заполняем карточку
+        card.innerHTML = `
+            <h3>Карточка студента</h3>
+            <p><strong>Имя:</strong> ${name}</p>
+            <p><strong>Группа:</strong> ${group}</p>
+            <p><strong>Курс:</strong> ${course}</p>
+        `;
+
+        // Добавляем карточку в DOM
+        document.getElementById("studentCards").appendChild(card);
+    }
+</script>
+
+</body>
+</html>
